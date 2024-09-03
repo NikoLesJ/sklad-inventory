@@ -9,7 +9,7 @@ const columns: GridColDef[] = [
     { field: "name", headerName: "Product Name", width: 200 },
     { field: "price", headerName: "Price", width: 110, type: "number", valueGetter: (value, row) => `$${row.price}` },
     { field: "rating", headerName: "Rating", width: 110, type: "number", valueGetter: (value, row) => row.rating ? row.rating : "N/A" },
-    { field: "stockQuantity", headerName: "Stock Quantity", width: 150 },
+    { field: "stockQuantity", headerName: "Stock Quantity", width: 150, type: "number" },
 ]
 
 const Inventory = () => {

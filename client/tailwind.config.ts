@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 import { createThemes } from "tw-colors";
-import colors, { black } from "tailwindcss/colors";
-import { dark } from "@mui/material/styles/createPalette";
+import colors from "tailwindcss/colors";
 
 const baseColors = [
   "gray",
@@ -11,7 +10,7 @@ const baseColors = [
   "blue",
   "indigo",
   "purple",
-  "pink"
+  "pink",
 ];
 
 const shadeMapping = {
@@ -45,11 +44,11 @@ const darkTheme = generateThemeObject(colors, shadeMapping, true);
 const themes = {
   light: {
     ...lightTheme,
-    white: "ffffff"
+    white: "#ffffff"
   },
   dark: {
     ...darkTheme,
-    while: colors.gray["950"],
+    white: colors.gray["950"],
     black: colors.gray["50"]
   }
 }

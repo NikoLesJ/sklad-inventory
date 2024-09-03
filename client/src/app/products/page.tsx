@@ -66,7 +66,7 @@ const Products = () => {
         </div>
 
         {/* BODY PRODUCTS LIST */}
-        <div className='grig grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-between'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg-grid-cols-3 gap-10 justify-between'>
             {isLoading ? (<div>Loading...</div>) : (
                 products?.map((product) => (
                     <div key={product.productId} className='border shadow rounded-md p-4 max-w-full w-full mx-auto'>
