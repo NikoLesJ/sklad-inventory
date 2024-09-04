@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from '@/app/redux';
 import { setIsSidebarCollapsed } from '@/state';
-import { Archive, CircleDollarSign, Clipboard, Layout, LucideIcon, Menu, SlidersHorizontal, User } from 'lucide-react'
+import { Archive, CircleDollarSign, Clipboard, Layout, LucideIcon, Menu, SlidersHorizontal, User, FileCode2 } from 'lucide-react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -77,7 +77,7 @@ const Sidebar = () => {
     <div className='flex-grow mt-8'>
       <SidebarLink href='/dashboard' icon={Layout} label='Dashboard' isCollapsed={isSidebarCollapsed} />
       <SidebarLink href='/inventory' icon={Archive} label='Inventory' isCollapsed={isSidebarCollapsed} />
-      <SidebarLink href='/allproducts' icon={Archive} label='All Products' isCollapsed={isSidebarCollapsed} />
+      <SidebarLink href='/xmlcreator' icon={FileCode2} label='XML Creator' isCollapsed={isSidebarCollapsed} />
       <SidebarLink href='/products' icon={Clipboard} label='Products' isCollapsed={isSidebarCollapsed} />
       <SidebarLink href='/users' icon={User} label='Users' isCollapsed={isSidebarCollapsed} />
       <SidebarLink href='/settings' icon={SlidersHorizontal} label='Settings' isCollapsed={isSidebarCollapsed} />

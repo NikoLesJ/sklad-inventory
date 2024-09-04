@@ -1,12 +1,13 @@
 "use client"
 
-import { useCreateProductMutation, useGetProductsQuery } from '@/state/api';
-import { PlusCircleIcon, SearchIcon } from 'lucide-react';
+import { useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useGetProductsQuery } from '@/state/api';
+import { EditIcon, PlusCircleIcon, SearchIcon, Trash2Icon } from 'lucide-react';
 import React, { useState } from 'react'
 import Header from '@/app/(components)/Header';
 import Rating from '@/app/(components)/Rating';
 import CreateProductModal from './CreateProductModal';
 import Image from 'next/image';
+import EditProductModal from './EditProductModal';
 
 type ProductFormData = {
     name: string;
@@ -18,14 +19,31 @@ type ProductFormData = {
 const Products = () => {
     const [searchTerm, setSearchTerm ] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState<ProductFormData | null>(null);
 
     const { data: products, isLoading, isError } = useGetProductsQuery(searchTerm);
 
     const [ createProduct ] = useCreateProductMutation();
+    const [ deleteProduct ] = useDeleteProductMutation();
+    const [ updateProduct ] = useUpdateProductMutation();
 
     const handleCreateProduct = async ( productData: ProductFormData ) => {
         await createProduct(productData);
     }
+
+    const handleDeleteProduct = async (productId: string) => {
+        await deleteProduct(productId);
+    }
+
+    const handleUpdateProduct = async (productData: ProductFormData) => {
+        await updateProduct(productData);
+    };
+
+    const openEditModal = (product: ProductFormData) => {
+        setCurrentProduct(product);
+        setIsEditModalOpen(true);
+    };
 
     if (isLoading) {
         return <div className="py-4">Loading...</div>
@@ -73,8 +91,8 @@ const Products = () => {
                         <div className='flex flex-col items-center'>
                         <Image
                             src={`https://s3-inventorymanagement11.s3.eu-central-1.amazonaws.com/product${
-                            Math.floor(Math.random() * 3) + 1
-                            }.png`}
+                                Math.floor(Math.random() * 3) + 1
+                              }.png`}
                             alt={product.name}
                             width={150}
                             height={150}
@@ -90,14 +108,35 @@ const Products = () => {
                                     <Rating rating={product.rating} />
                                 </div>
                             )}
+                            <button 
+                                className='flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-3'
+                                onClick={() => handleDeleteProduct(product.productId)}
+                            >
+                                <Trash2Icon className='w-5 h-5 mr-2' /> Delete
+                            </button>
+                            <button 
+                                className='flex items-center bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded'
+                                onClick={() => openEditModal(product)}
+                            >
+                                <EditIcon className='w-5 h-5 mr-2' /> Edit
+                            </button>
                         </div>
                     </div>
                 ))
             )}
         </div>
 
-        {/* MODAL */}
+        {/* CREATE PRODUCT MODAL */}
         <CreateProductModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreate={handleCreateProduct} />
+        {/* EDIT PRODUCT MODAL */}
+        {isEditModalOpen && currentProduct && (
+        <EditProductModal
+            isOpen={isEditModalOpen}
+            onClose={() => setIsEditModalOpen(false)}
+            onUpdate={handleUpdateProduct}
+            initialData={currentProduct}
+        />
+            )}
     </div>
   )
 }
