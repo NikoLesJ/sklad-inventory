@@ -10,11 +10,13 @@ import Image from 'next/image';
 import EditProductModal from './EditProductModal';
 
 type ProductFormData = {
+    productId: string;
     name: string;
     price: number;
     stockQuantity: number;
     rating: number;
 }
+
 
 const Products = () => {
     const [searchTerm, setSearchTerm ] = useState("");
