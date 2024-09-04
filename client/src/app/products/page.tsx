@@ -116,12 +116,12 @@ const Products = () => {
                             >
                                 <Trash2Icon className='w-5 h-5 mr-2' /> Delete
                             </button>
-                            <button 
+                            {/* <button 
                                 className='flex items-center bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded'
                                 onClick={() => openEditModal(product)}
                             >
                                 <EditIcon className='w-5 h-5 mr-2' /> Edit
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 ))
